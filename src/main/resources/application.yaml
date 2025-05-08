@@ -5,14 +5,14 @@ spring:
   application:
     name: vpp
   datasource:
-    url: jdbc:mysql://localhost:3306/vpp_db
+    url: jdbc:mysql://localhost:3307/vpp_db
     username: vpp
     password: vpp
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -21,7 +21,7 @@ spring:
 
   sql:
     init:
-      mode: always  # Optional: auto-runs schema.sql or data.sql if present
+      mode: always
 
 logging:
   level:

@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS bettery
+DROP TABLE IF EXISTS batteries;
+CREATE TABLE IF NOT EXISTS batteries
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name       VARCHAR(255)   NOT NULL,
-    capacity   INT            NOT NULL,
-    voltage    DECIMAL(10, 2) NOT NULL,
+    name       VARCHAR(255) NOT NULL,
+    postcode   VARCHAR(10)  NOT NULL,
+    capacity   INT          NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

@@ -9,7 +9,7 @@ services:
       - MYSQL_USER=vpp
       - MYSQL_PASSWORD=vpp
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes:
       - db:/var/lib/mysql
 volumes:
