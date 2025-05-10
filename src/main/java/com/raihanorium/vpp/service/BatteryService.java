@@ -1,9 +1,9 @@
 package com.raihanorium.vpp.service;
 
-import com.raihanorium.vpp.web.dto.BatteryDto;
-import com.raihanorium.vpp.web.request.GetBatteriesRequest;
-import com.raihanorium.vpp.web.request.SaveBatteriesRequest;
-import com.raihanorium.vpp.web.response.GetBatteriesResponse;
+import com.raihanorium.vpp.api.v1.dto.BatteryDto;
+import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
+import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
+import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
 
 import java.util.List;
 

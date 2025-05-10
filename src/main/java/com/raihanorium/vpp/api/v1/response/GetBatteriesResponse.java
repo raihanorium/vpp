@@ -1,4 +1,4 @@
-package com.raihanorium.vpp.web.response;
+package com.raihanorium.vpp.api.v1.response;
 
 import java.util.List;
 

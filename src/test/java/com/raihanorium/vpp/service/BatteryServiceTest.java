@@ -1,12 +1,12 @@
 package com.raihanorium.vpp.service;
 
+import com.raihanorium.vpp.api.v1.dto.BatteryDto;
+import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
+import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
+import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
 import com.raihanorium.vpp.persistence.Battery;
 import com.raihanorium.vpp.repository.BatteryRepository;
 import com.raihanorium.vpp.service.impl.BatteryServiceImpl;
-import com.raihanorium.vpp.web.dto.BatteryDto;
-import com.raihanorium.vpp.web.request.GetBatteriesRequest;
-import com.raihanorium.vpp.web.request.SaveBatteriesRequest;
-import com.raihanorium.vpp.web.response.GetBatteriesResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -89,5 +89,43 @@ class BatteryServiceTest {
         assertEquals(2, resultDtos.size());
         assertEquals("Battery A", resultDtos.get(0).name());
         assertEquals("Battery B", resultDtos.get(1).name());
+    }
+
+    @Test
+    @DisplayName("Should save batteries and return saved BatteryDtos")
+    void testSaveBatteries_withValidRequest_returnsSavedDtos() {
+        // Arrange
+        BatteryDto batteryDto1 = new BatteryDto(1L, "Battery A", "2000", 10000);
+        BatteryDto batteryDto2 = new BatteryDto(2L, "Battery B", "3000", 20000);
+        SaveBatteriesRequest request = new SaveBatteriesRequest(List.of(batteryDto1, batteryDto2));
+
+        Battery battery1 = BatteryDto.toEntity(batteryDto1);
+        Battery battery2 = BatteryDto.toEntity(batteryDto2);
+        List<Battery> savedEntities = List.of(battery1, battery2);
+
+        when(batteryRepository.saveAll(anyList())).thenReturn(savedEntities);
+
+        // Act
+        List<BatteryDto> resultDtos = batteryService.saveBatteries(request);
+
+        // Assert
+        assertEquals(2, resultDtos.size());
+        assertEquals("Battery A", resultDtos.get(0).name());
+        assertEquals("Battery B", resultDtos.get(1).name());
+    }
+
+    @Test
+    @DisplayName("Should return empty list when no batteries are provided")
+    void testSaveBatteries_withEmptyRequest_returnsEmptyList() {
+        // Arrange
+        SaveBatteriesRequest request = new SaveBatteriesRequest(Collections.emptyList());
+
+        when(batteryRepository.saveAll(anyList())).thenReturn(Collections.emptyList());
+
+        // Act
+        List<BatteryDto> resultDtos = batteryService.saveBatteries(request);
+
+        // Assert
+        assertEquals(0, resultDtos.size());
     }
 }

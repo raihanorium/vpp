@@ -1,6 +1,6 @@
-package com.raihanorium.vpp.web.request;
+package com.raihanorium.vpp.api.v1.request;
 
-import com.raihanorium.vpp.web.dto.BatteryDto;
+import com.raihanorium.vpp.api.v1.dto.BatteryDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 

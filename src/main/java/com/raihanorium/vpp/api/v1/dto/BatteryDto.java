@@ -1,4 +1,4 @@
-package com.raihanorium.vpp.web.dto;
+package com.raihanorium.vpp.api.v1.dto;
 
 import com.raihanorium.vpp.persistence.Battery;
 import jakarta.validation.constraints.Min;

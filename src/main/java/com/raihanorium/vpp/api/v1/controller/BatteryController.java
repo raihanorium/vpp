@@ -1,10 +1,10 @@
-package com.raihanorium.vpp.web.controller;
+package com.raihanorium.vpp.api.v1.controller;
 
+import com.raihanorium.vpp.api.v1.dto.BatteryDto;
+import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
+import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
+import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
 import com.raihanorium.vpp.service.BatteryService;
-import com.raihanorium.vpp.web.dto.BatteryDto;
-import com.raihanorium.vpp.web.request.GetBatteriesRequest;
-import com.raihanorium.vpp.web.request.SaveBatteriesRequest;
-import com.raihanorium.vpp.web.response.GetBatteriesResponse;
 import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
