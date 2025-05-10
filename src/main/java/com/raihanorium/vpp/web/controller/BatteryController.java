@@ -6,6 +6,7 @@ import com.raihanorium.vpp.web.request.GetBatteriesRequest;
 import com.raihanorium.vpp.web.request.SaveBatteriesRequest;
 import com.raihanorium.vpp.web.response.GetBatteriesResponse;
 import jakarta.annotation.Nonnull;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class BatteryController {
     @Nonnull private final BatteryService batteryService;
 
     @PostMapping
-    public ResponseEntity<List<BatteryDto>> saveBatteries(@RequestBody SaveBatteriesRequest request) {
+    public ResponseEntity<List<BatteryDto>> saveBatteries(@Valid @RequestBody SaveBatteriesRequest request) {
         return ResponseEntity.ok(batteryService.saveBatteries(request));
     }
 
