@@ -9,6 +9,7 @@ import com.raihanorium.vpp.repository.BatteryRepositorySupport;
 import com.raihanorium.vpp.service.BatteryService;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@Slf4j
 public class BatteryServiceImpl implements BatteryService {
 
     @Nonnull private final BatteryRepository batteryRepository;
@@ -23,6 +25,8 @@ public class BatteryServiceImpl implements BatteryService {
 
     @Override
     public List<BatteryDto> saveBatteries(SaveBatteriesRequest request) {
+        log.info("Saving batteries: {}", request);
+
         return batteryRepository.saveAll(request.batteries().stream()
                         .map(BatteryDto::toEntity)
                         .toList()).stream()
@@ -32,6 +36,8 @@ public class BatteryServiceImpl implements BatteryService {
 
     @Override
     public GetBatteriesResponse getBatteries(GetBatteriesRequest request) {
+        log.info("Getting batteries with request: {}", request);
+
         return batteryRepositorySupport.findAll(request);
     }
 }
