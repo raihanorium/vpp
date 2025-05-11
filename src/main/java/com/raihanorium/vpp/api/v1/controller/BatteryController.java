@@ -27,7 +27,7 @@ public class BatteryController {
     }
 
     @GetMapping
-    public ResponseEntity<GetBatteriesResponse> getBatteries(@RequestBody GetBatteriesRequest request) {
+    public ResponseEntity<GetBatteriesResponse> getBatteries(@Valid @RequestBody GetBatteriesRequest request) {
         return ResponseEntity.ok(batteryService.getBatteries(request));
     }
 }

@@ -6,6 +6,7 @@ import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
 import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
 import com.raihanorium.vpp.persistence.Battery;
 import com.raihanorium.vpp.repository.BatteryRepository;
+import com.raihanorium.vpp.repository.BatteryRepositorySupport;
 import com.raihanorium.vpp.service.impl.BatteryServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,8 @@ class BatteryServiceTest {
 
     @Mock
     private BatteryRepository batteryRepository;
+    @Mock
+    private BatteryRepositorySupport batteryRepositorySupport;
 
     @InjectMocks
     private BatteryServiceImpl batteryService;
@@ -36,12 +39,15 @@ class BatteryServiceTest {
     void testGetBatteries_withValidPostcodes_returnsCorrectResponse() {
         // Arrange
         List<String> postcodes = Arrays.asList("3010", "6107");
-        GetBatteriesRequest request = new GetBatteriesRequest(postcodes);
-        List<Battery> batteries = Arrays.asList(
-                new Battery(2L, "Cannington", "6107", 13500),
-                new Battery(1L, "University of Melbourne", "3010", 85000)
-        );
-        when(batteryRepository.findAllByPostcodeInOrderByName(postcodes)).thenReturn(batteries);
+        GetBatteriesRequest request = GetBatteriesRequest.builder()
+                .postcodes(postcodes)
+                .build();
+        GetBatteriesResponse returnValue = GetBatteriesResponse.builder()
+                .batteryNames(Arrays.asList("Cannington", "University of Melbourne"))
+                .totalWattage(98500L)
+                .averageWattage(49250.0)
+                .build();
+        when(batteryRepositorySupport.findAll(request)).thenReturn(returnValue);
 
         // Act
         GetBatteriesResponse response = batteryService.getBatteries(request);
@@ -57,8 +63,12 @@ class BatteryServiceTest {
     void testGetBatteries_withNoMatchingPostcodes_returnsEmptyResponse() {
         // Arrange
         List<String> postcodes = Collections.singletonList("9999");
-        GetBatteriesRequest request = new GetBatteriesRequest(postcodes);
-        when(batteryRepository.findAllByPostcodeInOrderByName(postcodes)).thenReturn(Collections.emptyList());
+        GetBatteriesRequest request = GetBatteriesRequest.builder()
+                .postcodes(postcodes)
+                .build();
+        when(batteryRepositorySupport.findAll(request)).thenReturn(GetBatteriesResponse.builder()
+                .batteryNames(Collections.emptyList())
+                .build());
 
         // Act
         GetBatteriesResponse response = batteryService.getBatteries(request);
