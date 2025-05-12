@@ -1,9 +1,9 @@
 package com.raihanorium.vpp.api.v1.controller;
 
-import com.raihanorium.vpp.api.v1.dto.BatteryDto;
 import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
 import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
 import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
+import com.raihanorium.vpp.api.v1.response.SaveBatteriesResponse;
 import com.raihanorium.vpp.service.BatteryService;
 import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -22,7 +20,7 @@ public class BatteryController {
     @Nonnull private final BatteryService batteryService;
 
     @PostMapping
-    public ResponseEntity<List<BatteryDto>> saveBatteries(@Valid @RequestBody SaveBatteriesRequest request) {
+    public ResponseEntity<SaveBatteriesResponse> saveBatteries(@Valid @RequestBody SaveBatteriesRequest request) {
         return ResponseEntity.ok(batteryService.saveBatteries(request));
     }
 

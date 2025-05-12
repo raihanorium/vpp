@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppConfig.class)
@@ -22,6 +23,15 @@ public class VppApplication {
         source.setBasename("ValidationMessages");
         source.setDefaultEncoding("UTF-8");
         return source;
+    }
+
+    @Bean
+    ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(5);
+        taskExecutor.setMaxPoolSize(10);
+        taskExecutor.setQueueCapacity(25);
+        return taskExecutor;
     }
 
 }

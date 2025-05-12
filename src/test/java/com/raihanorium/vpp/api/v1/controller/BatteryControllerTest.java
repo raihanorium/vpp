@@ -4,6 +4,7 @@ import com.raihanorium.vpp.api.v1.dto.BatteryDto;
 import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
 import com.raihanorium.vpp.api.v1.request.SaveBatteriesRequest;
 import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
+import com.raihanorium.vpp.api.v1.response.SaveBatteriesResponse;
 import com.raihanorium.vpp.config.TestcontainersConfiguration;
 import com.raihanorium.vpp.service.BatteryService;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,8 +68,8 @@ public class BatteryControllerTest {
                 BatteryDto.builder().name("Test6").postcode("6107").capacity(48500).build()
         );
         SaveBatteriesRequest request = new SaveBatteriesRequest(batteries);
-        List<BatteryDto> response = restTemplate.postForObject("/api/v1/batteries", request, List.class);
+        SaveBatteriesResponse response = restTemplate.postForObject("/api/v1/batteries", request, SaveBatteriesResponse.class);
         assertNotNull(response, "Response should not be null");
-        assertEquals(2, response.size(), "Response size should be 2");
+        assertEquals("Batteries are being saved in the background", response.message(), "Response message should be correct");
     }
 }
