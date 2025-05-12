@@ -15,8 +15,8 @@ import lombok.Setter;
 @Setter
 public class Battery extends BaseEntity {
     @Id
+    @SequenceGenerator(name = "battery_seq", sequenceName = "batteries_id_seq", allocationSize = 50)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "battery_seq")
-    @SequenceGenerator(name = "battery_seq", sequenceName = "battery_sequence")
     private Long id;
     private String name;
     private String postcode;

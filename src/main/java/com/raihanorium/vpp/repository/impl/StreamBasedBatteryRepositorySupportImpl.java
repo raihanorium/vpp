@@ -1,6 +1,6 @@
 package com.raihanorium.vpp.repository.impl;
 
-import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.core.BooleanBuilder;
 import com.raihanorium.vpp.api.v1.request.GetBatteriesRequest;
 import com.raihanorium.vpp.api.v1.response.GetBatteriesResponse;
 import com.raihanorium.vpp.persistence.Battery;
@@ -22,18 +22,19 @@ public class StreamBasedBatteryRepositorySupportImpl extends QuerydslRepositoryS
     public GetBatteriesResponse findAll(GetBatteriesRequest request) {
         QBattery battery = QBattery.battery;
 
-        JPQLQuery<Battery> baseQuery = from(battery)
-                .where(battery.postcode.in(request.postcodes()));
+        BooleanBuilder predicate = new BooleanBuilder();
+        predicate.and(battery.postcode.in(request.postcodes()));
 
         if (request.minimumCapacity() != null) {
-            baseQuery.where(battery.capacity.goe(request.minimumCapacity()));
+            predicate.and(battery.capacity.goe(request.minimumCapacity()));
         }
         if (request.maximumCapacity() != null) {
-            baseQuery.where(battery.capacity.loe(request.maximumCapacity()));
+            predicate.and(battery.capacity.loe(request.maximumCapacity()));
         }
 
-        List<Battery> batteries = baseQuery
+        List<Battery> batteries = from(battery)
                 .select(battery)
+                .where(predicate)
                 .orderBy(battery.name.asc())
                 .fetch();
 
