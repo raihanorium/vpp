@@ -40,4 +40,9 @@ public class BatteryServiceImpl implements BatteryService {
 
         return batteryRepositorySupport.findAll(request);
     }
+
+    @Override
+    public void deleteAllBatteries() {
+        batteryRepository.deleteAll();
+    }
 }

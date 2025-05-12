@@ -11,4 +11,6 @@ public interface BatteryService {
     List<BatteryDto> saveBatteries(SaveBatteriesRequest request);
 
     GetBatteriesResponse getBatteries(GetBatteriesRequest request);
+
+    void deleteAllBatteries();
 }
