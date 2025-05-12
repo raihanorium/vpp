@@ -29,16 +29,15 @@
 Accepts a JSON object with the following structure:
 
   ```json
-  {
-  "postcodes": [
-    "6733",
-    "6525",
-    "6107",
-    "6076",
-    ...
-  ],
-  "minimumCapacity": 10000,
-  "maximumCapacity": 20000
+{
+    "postcodes": [
+      "6733",
+      "6525",
+      "6107",
+      "6076"
+    ],
+    "minimumCapacity": 10000,
+    "maximumCapacity": 20000
 }
   ```
 
@@ -52,22 +51,22 @@ Parameters:
 
 Response:
 
-- `200 OK`: A JSON object containing the filtered batteries.
 - `400 Bad Request`: If the request body is not valid JSON or if the postcodes are not provided.
-    - `500 Internal Server Error`: If there is an error processing the request.
-  ```json
-    {
-    "batteryNames": [
-      "Cannington",
-      "Carmel",
-      "Kalamunda",
-      "Koolan Island",
-      "Lesmurdie",
-      "Mount Adams"
-    ],
-      "totalWattage": 98500,
-      "averageWattage": 16416.666666666668
-    }
+- `500 Internal Server Error`: If there is an error processing the request.
+- `200 OK`: A JSON object containing the filtered batteries.
+```json
+{
+  "batteryNames": [
+    "Cannington",
+    "Carmel",
+    "Kalamunda",
+    "Koolan Island",
+    "Lesmurdie",
+    "Mount Adams"
+  ],
+  "totalWattage": 98500,
+  "averageWattage": 16416.666666666668
+}
   ```
 
 ### POST http://localhost:8080/api/v1/batteries
@@ -89,4 +88,16 @@ Accepts a JSON object with the following structure:
       }
     ]
 }
+```
+
+## Extra Config
+In the ./src/main/resources/application.yaml file, you can configure the following properties:
+```yaml
+app:
+  maxPostcodesInQuery: 50
+
+  # database or stream
+  # database performs well for large dataset
+  # stream processes the collection in 3 streams
+  batteryQueryStrategy: database
 ```
